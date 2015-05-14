@@ -18,10 +18,13 @@ BasicGame.MainMenu.prototype = {
 
 		// Add Main Menu Graphics
 	    		
-	    this.bg = this.add.sprite(0, 0, 'background');
+	    //this.bg = this.add.sprite(0, 0, 'background');
 
 	    // Add "Click here to Play" Button
-		this.playButton = this.add.button(300, 140, 'new-game', this.startGame, this, 1, 0, 1);
+		countDownText = this.add.text(0, 0, "test", { font: "65px Arial", fill: "#ffffff", align: "center" });
+		countDownText.setText("STREET \nCOUNTDOWN");
+
+		this.playButton = this.add.button(100, 300, 'new-game', this.startGame, this, 1, 0, 1);
 		this.playButton.input.useHandCursor = true;
 
 	},
@@ -31,13 +34,12 @@ BasicGame.MainMenu.prototype = {
 	},
 
 	startGame: function (pointer) {
-		countDownText = this.add.text(0, 100, "test", { font: "65px Arial", fill: "#ff0044", align: "center" });
-		countDownText.setText("JOE SUCKS LOL");
+		
 		//	Ok, the Play Button has been clicked or touched, so let's stop the music (otherwise it'll carry on playing)
 		// this.music.stop();
 
 		// And start the actual game
-		//this.state.start('Game');
+		this.state.start('GamePlay');
 
 	}
 

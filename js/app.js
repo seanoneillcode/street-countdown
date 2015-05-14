@@ -4,7 +4,8 @@ window.onload = function() {
   var game = new Phaser.Game(600, 800, Phaser.AUTO, "countdown" );
 
   game.state.add('Boot', BasicGame.Boot);
-  game.state.add('Menu', BasicGame.MainMenu);
+  game.state.add('MainMenu', BasicGame.MainMenu);
+  game.state.add('GamePlay', BasicGame.GamePlay);
   game.state.start('Boot');
 
 

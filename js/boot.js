@@ -24,13 +24,16 @@ BasicGame.Boot.prototype = {
         // Here we load the assets required for our preloader (in this case a background and a loading bar)
         this.load.image('background', 'assets/images/background.png');
 		this.load.image('new-game', 'assets/images/new-game.png');
+        this.load.image('vowel', 'assets/images/vowel.png');
+        this.load.image('consonant', 'assets/images/consonant.png');
+        this.load.image('done', 'assets/images/done.png');
     },
 
     create: function () {
 
         // By this point the preloader assets have loaded to the cache, we've set the game settings
         // So now let's start the real preloader going
-        this.state.start('Menu');
+        this.state.start('MainMenu');
 
     }
 
