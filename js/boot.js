@@ -27,6 +27,9 @@ BasicGame.Boot.prototype = {
         this.load.image('vowel', 'assets/images/vowel.png');
         this.load.image('consonant', 'assets/images/consonant.png');
         this.load.image('done', 'assets/images/done.png');
+        this.load.image('fight', 'assets/images/fight.png');
+
+        this.load.text('wordlist', 'wordlist.txt');
     },
 
     create: function () {

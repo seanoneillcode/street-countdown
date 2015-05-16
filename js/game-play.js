@@ -6,14 +6,16 @@ BasicGame.GamePlay = function (game) {
 	this.countDownText = null;
 	this.randomLetters = "";
 	this.timer = null;
-	this.timerValue = 30;
+	this.timerValue = 10;
 	this.timerText = null;
 	this.game = game;
 	this.enterText = null;
-	this.state = "enterLetters";
+	this.internalState = "enterLetters";
 	this.playerInput = null;
 	this.words = null;
-
+	this.fightWord = null;
+	this.choochooButton = null;
+	this.dictionary = null;
 };
 
 BasicGame.GamePlay.prototype = {
@@ -23,33 +25,49 @@ BasicGame.GamePlay.prototype = {
 	    this.bg = this.add.sprite(0, 0, 'background');
 		this.vowelButton = this.add.button(130, 700, 'vowel', this.addVowel, this, 1, 0, 1);
 		this.vowelButton.input.useHandCursor = true;
-		this.vowelButton = this.add.button(230, 700, 'consonant', this.addCon, this, 1, 0, 1);
-		this.vowelButton.input.useHandCursor = true;
-		this.vowelButton = this.add.button(330, 700, 'done', this.startCountdown, this, 1, 0, 1);
-		this.vowelButton.input.useHandCursor = true;
-		countDownText = this.add.text(30, 50, "", { font: "60px Arial", fill: "#ffffff", align: "center" });
+		this.conButton = this.add.button(230, 700, 'consonant', this.addCon, this, 1, 0, 1);
+		this.conButton.input.useHandCursor = true;
+		this.doneButton = this.add.button(330, 700, 'done', this.startCountdown, this, 1, 0, 1);
+		this.doneButton.input.useHandCursor = true;
+		countDownText = this.add.text(10, 10, "", { font: "60px Arial", fill: "#ffffff" });
 		countDownText.setText(this.randomLetters);
 		this.timer = this.game.time.create(false);
 	    this.timer.loop(1000, this.updateCounter, this);
-		this.state = "enterLetters";
-		enterText = this.add.text(30, 100, "", { font: "40px Arial", fill: "#ffffff", align: "center" });
+		this.internalState = "enterLetters";
+		enterText = this.add.text(10, 100, "", { font: "40px Arial", fill: "#ffffff", align: "center" });
 		playerInput = "";
-		this.game.input.keyboard.onUpCallback = this.keyUp;
-		words = [];
-		allWords = this.add.text(30, 200, "", { font: "20px Arial", fill: "#ffffff", align: "center" });
 		
-		console.log(Phaser.Keyboard);
-		// Phaser.Keyboard.addKeyCapture(8);
+		words = [];
+		var text = this.game.cache.getText('wordlist');
+		var values = text.split("\r\n");
+		this.dictionary = {};
+		values.forEach(function(value) {
+			self.dictionary[value] = true;
+		});
 	},
 
 	update: function () {
-		countDownText.setText(this.randomLetters);
-		enterText.setText(playerInput);
+		
 	},
 
-	keyUp: function(e) {
-		console.log(e.keyCode);
+	selectWord: function(text) {
+		if (this.internalState === "chooseWord") {
+			this.chooseText.setText(text);
+			this.fightWord = text;
+		}
+	},
+
+	keyUp: function(self, e) {
+		// console.log(arguments);
 		if (e.keyCode === 13) {
+			textButton = this.game.add.text(10, (words.length * 40) + 200, playerInput, { font: "20px Arial", fill: "#ffffff", align: "center" });
+		    textButton.anchor.setTo(0, 0);
+		    textButton.inputEnabled = true;
+		    var thisText = playerInput;
+		    //This event is fired on click on text event # 2
+		    textButton.events.onInputDown.add(function(){
+		    	self.selectWord(thisText);
+		    }, this, 2);
 			words.push(playerInput);
 			playerInput = "";
 		}
@@ -57,42 +75,64 @@ BasicGame.GamePlay.prototype = {
 			var c = 'abcdefghijklmnopqrstuvwxyz'[e.keyCode - 65];
 			playerInput = playerInput + c;
 		}
-		var allText = "";
-		for (var i = 0; i < words.length; i++) {
-			allText = allText + " \n " + words[i];
-		}
-		allWords.setText(allText);
-	},
-
-	addWord: function() {
-
+		enterText.setText(playerInput);
 	},
 
 	addVowel: function() {
-		if (this.state === "enterLetters") {
+		if (this.internalState === "enterLetters") {
 			this.randomLetters = this.randomLetters + this.getRandomCharacter("aueio") + " ";
 		}
+		countDownText.setText(this.randomLetters);
 	},
 
 	addCon: function() {
-		if (this.state === "enterLetters") {
+		if (this.internalState === "enterLetters") {
 			this.randomLetters = this.randomLetters + this.getRandomCharacter("bcdfghjklmnpqrstvwxyz") + " ";
 		}
+		countDownText.setText(this.randomLetters);
 	},
 
 	startCountdown: function() {
-		this.state = "countingDown";
-		this.timerText = this.add.text(30, 440, "" + this.timerValue, { font: "80px Arial", fill: "#ff0000", align: "center" });
+		var self = this;
+		this.vowelButton.destroy();
+		this.conButton.destroy();
+		this.doneButton.destroy();
+		this.internalState = "countingDown";
+		this.timerText = this.add.text(300, 400, "" + this.timerValue, { font: "80px Arial", fill: "#ffffff", align: "center" });
 	    this.timer.start();
+	    this.game.input.keyboard.onUpCallback = function(e) {
+			self.keyUp(self, e);
+		};
 	},
 
 	updateCounter: function() {
+		var self = this;
 		this.timerValue = this.timerValue - 1;
 		this.timerText.setText("" + this.timerValue);
 		if (this.timerValue === -1) {
 			this.timer.destroy();
-			this.timerText.setText("");
+			this.timerText.destroy();
+			this.chooseText = this.add.text(200, 450, "Choose your answer", { font: "40px Arial", fill: "#ffffff", align: "center" });
+			this.internalState = "chooseWord";
+			this.choochooButton = this.add.button(300, 500, 'fight', this.fightWithWord, this, 1, 0, 1);
+			this.choochooButton.input.useHandCursor = true;
 		}
+	},
+
+	fightWithWord: function() {
+		var resultText = "YOU LOSE";
+		if (this.dictionary.hasOwnProperty(this.fightWord)) {
+			console.log("AWW YESSS");
+			resultText = "YOU WIN";
+		}
+		this.resultText = this.add.text(10, 700, resultText, { font: "80px Arial", fill: "#ffffff", align: "center" });
+		this.timer = this.game.time.create(false);
+	    this.timer.loop(2000, this.backToMainMenu, this);
+	    this.timer.start();
+	},
+
+	backToMainMenu: function() {
+		this.state.start('MainMenu');
 	},
 
 	getRandomCharacter: function(charSet) {
