@@ -30,13 +30,15 @@ BasicGame.GamePlay.prototype = {
 		this.doneButton = this.add.button(330, 700, 'done', this.startCountdown, this, 1, 0, 1);
 		this.doneButton.input.useHandCursor = true;
 		countDownText = this.add.text(10, 10, "", { font: "60px Arial", fill: "#ffffff" });
+		this.randomLetters = "";
 		countDownText.setText(this.randomLetters);
 		this.timer = this.game.time.create(false);
 	    this.timer.loop(1000, this.updateCounter, this);
 		this.internalState = "enterLetters";
 		enterText = this.add.text(10, 100, "", { font: "40px Arial", fill: "#ffffff", align: "center" });
 		playerInput = "";
-		
+		this.timerValue = 10;
+
 		words = [];
 		var text = this.game.cache.getText('wordlist');
 		var values = text.split("\r\n");
@@ -132,7 +134,7 @@ BasicGame.GamePlay.prototype = {
 	},
 
 	backToMainMenu: function() {
-		this.state.start('MainMenu');
+		this.state.start('MainMenu',true,false);
 	},
 
 	getRandomCharacter: function(charSet) {
