@@ -29,6 +29,10 @@ BasicGame.Boot.prototype = {
         this.load.image('done', 'assets/images/done.png');
         this.load.image('fight', 'assets/images/fight.png');
         this.load.image('cover', 'assets/images/cover.png');
+        this.load.image('highlighted-player', 'assets/images/highlighted-player.png');
+        this.load.image('avatar', 'assets/images/avatar.png');
+        this.load.image('avatar-sml', 'assets/images/avatar-sml.png');
+        this.load.image('character-background', 'assets/images/character-background.png');
         this.load.text('wordlist', 'wordlist.txt');
     },
 

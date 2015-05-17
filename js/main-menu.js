@@ -39,7 +39,7 @@ BasicGame.MainMenu.prototype = {
 		// this.music.stop();
 
 		// And start the actual game
-		this.state.start('GamePlay',true,false);
+		this.state.start('CharacterSelect',true,false);
 
 	}
 
