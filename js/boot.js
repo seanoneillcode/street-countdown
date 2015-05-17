@@ -33,7 +33,7 @@ BasicGame.Boot.prototype = {
         this.load.image('avatar', 'assets/images/avatar.png');
         this.load.image('avatar-sml', 'assets/images/avatar-sml.png');
         this.load.image('character-background', 'assets/images/character-background.png');
-        this.load.text('wordlist', 'wordlist.txt');
+        this.load.text('wordlist', 'assets/text/wordlist.txt');
     },
 
     create: function () {
