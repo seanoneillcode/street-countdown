@@ -60,6 +60,9 @@ BasicGame.GamePlay.prototype = {
 	},
 
 	keyUp: function(self, e) {
+		if (this.internalState != "countingDown") {
+			return;
+		}
 		// console.log(arguments);
 		if (e.keyCode === 13) {
 			textButton = this.game.add.text(10, (words.length * 40) + 200, playerInput, { font: "20px Arial", fill: "#ffffff", align: "center" });

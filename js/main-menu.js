@@ -21,10 +21,10 @@ BasicGame.MainMenu.prototype = {
 	    //this.bg = this.add.sprite(0, 0, 'background');
 
 	    // Add "Click here to Play" Button
-		countDownText = this.add.text(0, 0, "test", { font: "65px Arial", fill: "#ffffff", align: "center" });
-		countDownText.setText("STREET \nCOUNTDOWN");
-
-		this.playButton = this.add.button(100, 300, 'new-game', this.startGame, this, 1, 0, 1);
+		// countDownText = this.add.text(80, 60, "test", { font: "65px Arial", fill: "#ffffff", align: "center" });
+		// countDownText.setText("STREET \nCOUNTDOWN");
+		this.bg = this.add.sprite(0, 0, 'cover');
+		this.playButton = this.add.button(220, 720, 'new-game', this.startGame, this, 1, 0, 1);
 		this.playButton.input.useHandCursor = true;
 
 	},
