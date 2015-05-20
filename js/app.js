@@ -6,6 +6,7 @@ window.onload = function() {
   game.state.add('Boot', BasicGame.Boot);
   game.state.add('MainMenu', BasicGame.MainMenu);
   game.state.add('CharacterSelect', BasicGame.CharacterSelect);
+  game.state.add('Picking', BasicGame.Picking);
   game.state.add('GamePlay', BasicGame.GamePlay);
   game.state.start('Boot');
 

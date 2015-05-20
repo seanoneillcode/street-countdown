@@ -1,8 +1,5 @@
 BasicGame.GamePlay = function (game) {
 
-	this.vowelButton = null;
-	this.conButton = null;
-	this.doneButton = null;
 	this.countDownText = null;
 	this.randomLetters = "";
 	this.timer = null;
@@ -20,25 +17,22 @@ BasicGame.GamePlay = function (game) {
 
 BasicGame.GamePlay.prototype = {
 
+	init: function(letters) {
+		this.randomLetters = letters;
+		
+	},
+
 	create: function () {
 		var self = this;
 	    this.bg = this.add.sprite(0, 0, 'background');
-		this.vowelButton = this.add.button(130, 700, 'vowel', this.addVowel, this, 1, 0, 1);
-		this.vowelButton.input.useHandCursor = true;
-		this.conButton = this.add.button(230, 700, 'consonant', this.addCon, this, 1, 0, 1);
-		this.conButton.input.useHandCursor = true;
-		this.doneButton = this.add.button(330, 700, 'done', this.startCountdown, this, 1, 0, 1);
-		this.doneButton.input.useHandCursor = true;
 		countDownText = this.add.text(10, 10, "", { font: "60px Arial", fill: "#ffffff" });
-		this.randomLetters = "";
-		countDownText.setText(this.randomLetters);
 		this.timer = this.game.time.create(false);
 	    this.timer.loop(1000, this.updateCounter, this);
 		this.internalState = "enterLetters";
 		enterText = this.add.text(10, 100, "", { font: "40px Arial", fill: "#ffffff", align: "center" });
 		playerInput = "";
-		this.timerValue = 10;
-
+		this.timerValue = 20;
+		countDownText.setText(this.randomLetters);
 		words = [];
 		var text = this.game.cache.getText('wordlist');
 		var values = text.split("\r\n");
@@ -46,6 +40,7 @@ BasicGame.GamePlay.prototype = {
 		values.forEach(function(value) {
 			self.dictionary[value] = true;
 		});
+		this.startCountdown();
 	},
 
 	update: function () {
@@ -83,25 +78,8 @@ BasicGame.GamePlay.prototype = {
 		enterText.setText(playerInput);
 	},
 
-	addVowel: function() {
-		if (this.internalState === "enterLetters") {
-			this.randomLetters = this.randomLetters + this.getRandomCharacter("aueio") + " ";
-		}
-		countDownText.setText(this.randomLetters);
-	},
-
-	addCon: function() {
-		if (this.internalState === "enterLetters") {
-			this.randomLetters = this.randomLetters + this.getRandomCharacter("bcdfghjklmnpqrstvwxyz") + " ";
-		}
-		countDownText.setText(this.randomLetters);
-	},
-
 	startCountdown: function() {
 		var self = this;
-		this.vowelButton.destroy();
-		this.conButton.destroy();
-		this.doneButton.destroy();
 		this.internalState = "countingDown";
 		this.timerText = this.add.text(300, 400, "" + this.timerValue, { font: "80px Arial", fill: "#ffffff", align: "center" });
 	    this.timer.start();

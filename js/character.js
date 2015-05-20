@@ -39,7 +39,7 @@ BasicGame.CharacterSelect.prototype = {
         playerOneAvatar = this.add.sprite(30, 150, 'avatar');
         playerTwoAvatar = this.add.sprite(350, 500, 'avatar');
         characters = ["roy", "word", "prime", "negative one"];
-        playerOneIndex = 3;
+        playerOneIndex = 2;
         playerTwoIndex = 0;
         playerOneHighlight = this.add.sprite(310, 350, 'highlighted-player');
         playerTwoHighlight = this.add.sprite(10, 360, 'highlighted-player');
@@ -52,7 +52,7 @@ BasicGame.CharacterSelect.prototype = {
     },
 
     goFight: function() {
-        this.state.start('GamePlay',true,false);
+        this.state.start('Picking',true,false);
     },
 
     selectPlayer: function(index) {
