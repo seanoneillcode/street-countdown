@@ -51,6 +51,9 @@ BasicGame.Fight.prototype = {
 		this.wordText.anchor.setTo(0.5, 0.5)
 
 		var text = this.game.cache.getText('wordlist');
+		if (!text) {
+			console.log("failed to load dictionry file");
+		}
 		var values = text.split("\r\n");
 		this.dictionary = {};
 		values.forEach(function(value) {
@@ -65,7 +68,7 @@ BasicGame.Fight.prototype = {
 	fightWithWord: function() {
 		var resultText = "YOU LOSE";
 		if (this.dictionary.hasOwnProperty(this.word)) {
-			console.log("AWW YESSS");
+			console.log("Dictionary found word");
 			resultText = "YOU WIN";
 		}
 		this.resultText = this.add.text(100, 700, resultText, { font: "80px Arial", fill: "#ffffff", align: "center" });

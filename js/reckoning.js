@@ -42,13 +42,6 @@ BasicGame.Reckoning.prototype = {
 		this.choochooButton = this.add.button(400, 700, 'fight', this.fightWithWord, this, 1, 0, 1);
 		this.choochooButton.input.useHandCursor = true;
 
-		var text = this.game.cache.getText('wordlist');
-		var values = text.split("\r\n");
-		this.dictionary = {};
-		values.forEach(function(value) {
-			self.dictionary[value] = true;
-		});
-
 		this.words.forEach(function(word, index) {
 			self.addWord(word, index);
 		});		
