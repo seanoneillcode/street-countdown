@@ -56,7 +56,7 @@ BasicGame.Picking.prototype = {
     	if (this.letters.length > 24) {
     		return;
     	}
-    	this.letters = this.letters + this.getRandomCharacter("aueio") + " ";
+    	this.letters = this.letters + this.getRandomCharacter("aueio");
     	letterBox.setText(this.letters);
         this.showAction("vowel", 80);
     },
@@ -65,7 +65,7 @@ BasicGame.Picking.prototype = {
     	if (this.letters.length > 24) {
     		return;
     	}
-    	this.letters = this.letters + this.getRandomCharacter("bcdfghjklmnpqrstvwxyz") + " ";
+    	this.letters = this.letters + this.getRandomCharacter("bcdfghjklmnpqrstvwxyz");
     	letterBox.setText(this.letters);
         this.showAction("consonant", 60);
     },
@@ -73,9 +73,8 @@ BasicGame.Picking.prototype = {
     smackTalk: function() {
         var lines = [
         "You fight like a cow",
-        "Your odor is an aura",
-        "You spell like a fool\n       fool!",
-        "Your visage is disturbing",
+        "You spell like a fool,\nfool!",
+        "Your visage is haunting",
         "Having difficulty?\nI'll speak monosyllabically",
         "You're the missing link",
         "Stop attempting to think.\nIt's disturbing",
@@ -86,7 +85,6 @@ BasicGame.Picking.prototype = {
         "your IQ wallows,\naround room tempreture",
         "You know, frowning isn't\n thinking.",
         "You're a health\n and safety violation",
-        "Go away! I can feel the \nroom's IQ plummeting",
         "Have a banana,\nMonkey man!"];
         var index = Math.floor(Math.random() * lines.length);
         this.showAction(lines[index], 30);
@@ -94,7 +92,7 @@ BasicGame.Picking.prototype = {
 
     done: function() {
         clearTimeout(this.speechTimer);
-        this.state.start('GamePlay', true, false, this.letters);
+        this.state.start('Countdown', true, false, this.letters);
     },
 
     showAction: function(action, size) {
