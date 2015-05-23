@@ -54,7 +54,8 @@ BasicGame.Fight.prototype = {
 		if (!text) {
 			console.log("failed to load dictionry file");
 		}
-		var values = text.split("\r\n");
+
+		var values = text.split(";");
 		this.dictionary = {};
 		values.forEach(function(value) {
 			self.dictionary[value] = true;
