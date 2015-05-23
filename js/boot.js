@@ -34,6 +34,7 @@ BasicGame.Boot.prototype = {
         this.load.image('action-box', 'assets/images/action-box.png');
         this.load.image('highlighted-player', 'assets/images/highlighted-player.png');
         this.load.image('avatar', 'assets/images/avatar.png');
+        this.load.image('thoughtful', 'assets/images/thoughtful.png');
         this.load.image('avatar-sml', 'assets/images/avatar-sml.png');
         this.load.image('speech-bubble', 'assets/images/speech-bubble.png');
         this.load.image('picking-background', 'assets/images/picking-background.png');
