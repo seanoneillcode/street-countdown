@@ -76,19 +76,7 @@ BasicGame.Reckoning.prototype = {
 	},
 
 	fightWithWord: function() {
-		var resultText = "YOU LOSE";
-		if (this.dictionary.hasOwnProperty(this.fightWord)) {
-			console.log("AWW YESSS");
-			resultText = "YOU WIN";
-		}
-		this.resultText = this.add.text(10, 700, resultText, { font: "80px Arial", fill: "#ffffff", align: "center" });
-		this.timer = this.game.time.create(false);
-	    this.timer.loop(2000, this.backToMainMenu, this);
-	    this.timer.start();
-	},
-
-	backToMainMenu: function() {
-		this.state.start('MainMenu',true,false);
+		this.state.start('Fight',true,false, this.fightWord);
 	}
 
 };

@@ -44,7 +44,7 @@ BasicGame.Countdown.prototype = {
 			self.keyDown(self, e);
 		};
 		playerInput = "";
-		this.timerValue = 20;
+		this.timerValue = 5;
 		this.startCountdown();
 		words = [];
 	},
