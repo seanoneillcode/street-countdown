@@ -104,7 +104,7 @@ BasicGame.Picking.prototype = {
         clearTimeout(this.speechTimer);
         this.speechTimer = setTimeout(function(){
             self.speechBubble.visible = false;
-            this.speechText.visible = false;
+            self.speechText.visible = false;
         }, 1500);
     },
 
