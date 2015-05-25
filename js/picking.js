@@ -58,7 +58,8 @@ BasicGame.Picking.prototype = {
     	}
     	this.letters = this.letters + this.getRandomCharacter("aueio");
     	letterBox.setText(this.letters);
-        this.showAction("vowel", 80);
+        var message = this.getSentence("vowel");
+        this.showAction(message, 30);
     },
 
     addCons: function() {
@@ -67,7 +68,8 @@ BasicGame.Picking.prototype = {
     	}
     	this.letters = this.letters + this.getRandomCharacter("bcdfghjklmnpqrstvwxyz");
     	letterBox.setText(this.letters);
-        this.showAction("consonant", 60);
+        var message = this.getSentence("consonant");
+        this.showAction(message, 30);
     },
 
     smackTalk: function() {
@@ -88,6 +90,23 @@ BasicGame.Picking.prototype = {
         "Have a banana,\nMonkey man!"];
         var index = Math.floor(Math.random() * lines.length);
         this.showAction(lines[index], 30);
+    },
+
+    getSentence: function(value) {
+        var sentences = [
+        "Boom! I'll take a \nfurther {v}.",
+        "{v}, you get me?",
+        "I'll take a {v} \nthis time",
+        "I'll have what he's\nhaving, {v}",
+        "I'll have another \n{v}.",
+        "Give me one of dem \nsweet {v}s,\nyou get me?",
+        "I'll take a {v}, \nplain and simple,\nthank you.",
+        "I'll take an even \nsweeter {v}.",
+        "I'll take a regular \n{v}, please."
+        ];
+        var index = Math.floor(Math.random() * sentences.length);
+        var sentence = sentences[index].replace("{v}", value);
+        return sentence;
     },
 
     done: function() {
