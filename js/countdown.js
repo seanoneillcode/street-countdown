@@ -87,6 +87,7 @@ BasicGame.Countdown.prototype = {
 		if (this.timerValue === -1) {
 			var inputElement = $("#input-box")[0];
 			inputElement.style.display = "none";
+			inputElement.value = "";
 			this.state.start('Reckoning', true, false, words);
 		}
 	},
